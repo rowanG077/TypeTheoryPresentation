@@ -7,6 +7,9 @@ edition = "2018"
 [dependencies]
 
 [[bin]]
-name = "printer"
-path = "src/printer.rs"
+name = "channels"
+path = "src/channels.rs"
 
+[[bin]]
+name = "borrowing"
+path = "src/borrowing.rs"
