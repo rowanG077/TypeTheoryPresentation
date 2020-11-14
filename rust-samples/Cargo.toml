@@ -13,3 +13,27 @@ path = "src/channels.rs"
 [[bin]]
 name = "borrowing"
 path = "src/borrowing.rs"
+
+[[bin]]
+name = "ownership_borrow"
+path = "src/ownership_borrow.rs"
+
+[[bin]]
+name = "ownership_move"
+path = "src/ownership_move.rs"
+
+[[bin]]
+name = "shmem_initial"
+path = "src/shmem_initial.rs"
+
+[[bin]]
+name = "shmem_rc"
+path = "src/shmem_rc.rs"
+
+[[bin]]
+name = "shmem_arc"
+path = "src/shmem_arc.rs"
+
+[[bin]]
+name = "thread_basic"
+path = "src/thread_basic.rs"
