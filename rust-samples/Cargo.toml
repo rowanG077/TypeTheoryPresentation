@@ -1,0 +1,12 @@
+[package]
+name = "TypeTheorySamples"
+version = "1.0.0"
+authors = ["Rowan Goemans <r.goemans@student.science.ru.nl>", "Stefan Schrijvers <...>"]
+edition = "2018"
+
+[dependencies]
+
+[[bin]]
+name = "printer"
+path = "src/printer.rs"
+
