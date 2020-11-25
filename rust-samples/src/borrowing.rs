@@ -24,5 +24,5 @@ fn main() {
 
     // Now value has been moved by ownership_str
     // We can no longer use it.
-    // borrow_str(&val);
+    borrow_str(&val);
 }

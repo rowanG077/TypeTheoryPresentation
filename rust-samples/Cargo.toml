@@ -15,12 +15,8 @@ name = "borrowing"
 path = "src/borrowing.rs"
 
 [[bin]]
-name = "ownership_borrow"
-path = "src/ownership_borrow.rs"
-
-[[bin]]
-name = "ownership_move"
-path = "src/ownership_move.rs"
+name = "ownership_thread"
+path = "src/ownership_thread.rs"
 
 [[bin]]
 name = "shmem_initial"

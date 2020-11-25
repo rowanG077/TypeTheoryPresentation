@@ -14,6 +14,15 @@ void* count(void* data_ptr) {
 		*counter += 1;
 	}
 
+	// thread 1       thread 2
+	// load counter   load counter
+	// counter + 1    counter + 1
+	// --------       store counter
+	// store counter
+
+	// Wanted : n + 2
+	// got:  n + 1
+
 	return NULL;
 }
 

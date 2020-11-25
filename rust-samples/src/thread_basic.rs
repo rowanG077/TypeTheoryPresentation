@@ -11,12 +11,12 @@ fn main() {
         }
     });
 
-    // Wait for the thread to finish.
-    handle.join().unwrap();
-
     // Print four more strings.
     for i in 1..5 {
         println!("hi number {} from the main thread!", i);
         thread::sleep(Duration::from_millis(1));
     }
+
+    // Wait for the thread to finish.
+    handle.join().unwrap();
 }
