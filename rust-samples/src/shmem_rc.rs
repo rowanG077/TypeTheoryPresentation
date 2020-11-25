@@ -12,6 +12,7 @@ fn main() {
         // well as increment the reference count.
         let counter = Rc::clone(&counter);
         let handle = thread::spawn(move || {
+            // When the MutexGuard goes out of scope it unlocks
             let mut num = counter.lock().unwrap();
 
             for _ in 0..1000000 {

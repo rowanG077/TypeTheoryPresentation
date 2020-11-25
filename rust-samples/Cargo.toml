@@ -37,3 +37,7 @@ path = "src/shmem_arc.rs"
 [[bin]]
 name = "thread_basic"
 path = "src/thread_basic.rs"
+
+[[bin]]
+name = "traits"
+path = "src/traits.rs"
