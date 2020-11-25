@@ -1,40 +1,47 @@
 fn main() {
 
-// Type to keep track of document information
-pub struct Document {
-    pub title: String,
-    pub author: String,
-    pub content: String,
+// 3-element vector
+pub struct Vector3 {
+    pub x: i32,
+    pub y: i32,
+    pub z: i32,
 }
 
-// Type to keep track of a reply
-pub struct Reply {
-    pub username: String,
-    pub content: String,
-    pub to: String,
+// Tuple
+pub struct Tuple2 {
+    pub first: i32,
+    pub second: i32,
 }
 
-// Trait that allows for a summary representation
-pub trait Summary {
-    fn summarize(&self) -> String;
+
+// Want a function that gives a string representation of the types.
+
+// Would like a polymorphic function a -> string, but we can't do this because
+// now nothing about the type a.
+
+
+// Showable trait
+// Represents: if a type implements this then we can get a string representation
+pub trait Showable {
+    fn show(&self) -> String;
 }
 
-// Implementation of the trait for Document
-impl Summary for Document {
-    fn summarize(&self) -> String {
-        format!("{}, by {} ({})", self.title, self.author, self.content)
+// Define implementations of functions specified by the trait
+impl Showable for Vector3 {
+    fn show(&self) -> String {
+        format!("[{}, {}, {}]", self.x, self.y, self.z)
     }
 }
 
-// Implementation of the trait for Reply
-impl Summary for Reply {
-    fn summarize(&self) -> String {
-        format!("{}: {}", self.username, self.content)
+impl Showable for Tuple2 {
+    fn show(&self) -> String {
+        format!("({}, {})", self.first, self.second)
     }
 }
 
-// Function that works on any type that implements the trait
-pub fn notify(item: &impl Summary) {
-    println!("Summary: {}", item.summarize());
+// A function with adhoc polymorphism that works on any type as long as it has
+// an implementation of the Showable trait
+pub fn represent(item: &impl Showable) {
+    println!("Representation: {}", item.show());
 }
 }

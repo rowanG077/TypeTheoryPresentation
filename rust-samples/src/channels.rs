@@ -14,7 +14,7 @@ fn main() {
         tx_h.send(hello).unwrap();
 
         // Cannot use hello here because they have been moved
-        println!("value of hello: {}", hello);
+        //println!("value of hello: {}", hello);
     });
 
     thread::spawn(move || {
