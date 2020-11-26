@@ -16,13 +16,13 @@ fn main() {
     // Borrow the value note the & indicating a borrow
     // Can be done as many times as you want.
     borrow_str(&val);
-    // borrow_str(&val);
-    // borrow_str(&val);
+    //borrow_str(&val);
+    //borrow_str(&val);
 
     // Move ownership to function ownership_str
     ownership_str(val);
 
     // Now value has been moved by ownership_str
     // We can no longer use it.
-    borrow_str(&val);
+    //borrow_str(&val);
 }

@@ -30,12 +30,12 @@
 % The author(s) of the presentation:
 %  - again first a short version to be displayed at the bottom;
 %  - next the full list of authors, which may include contact information;
-\author[Stefan S. \& Rowan G.]{
+\author[S. Schrijvers \& R. Goemans]{
   Stefan Schrijvers \\
   {\small \url{g.schrijvers@student.science.ru.nl}} \\
   \medskip
   Rowan Goemans \\
-  {\small \url{r.goemans@student.science.ru.nl}} \\ 
+  {\small \url{r.goemans@student.science.ru.nl}} \\
   }
 
 % The institute:
@@ -64,9 +64,9 @@
   \tableofcontents
 \end{frame}
 
-% Section titles are shown in at the top of the slides with the current section 
-% highlighted. Note that the number of sections determines the size of the top 
-% bar, and hence the university name and logo. If you do not add any sections 
+% Section titles are shown in at the top of the slides with the current section
+% highlighted. Note that the number of sections determines the size of the top
+% bar, and hence the university name and logo. If you do not add any sections
 % they will not be visible.
 \begin{frame}
   \frametitle{Rust book}
@@ -98,9 +98,9 @@
 
   \begin{itemize}
     \item Definition: An application makes progress in multiple tasks
-    \item Concrete: An application has more then 1 thread of execution
+    \item Concrete: An application has more than 1 thread of execution
     \item Weaker notion of parallelism.
-    \item Parallelism: An application has more then 1 thread of execution
+    \item Parallelism: An application has more than 1 thread of execution
           executing simultaneously.
   \end{itemize}
 \end{frame}
@@ -117,8 +117,8 @@
   \frametitle{Concurrency vs Parallelism}
   \begin{itemize}
       \item Sloppy usage of the term concurrency by industry
-      \item Usage of concurrency usually really means "Concurrency and/or Parallelism"
-      \item When encountering "concurrency", read "Concurrency and/or Parallelism" during 
+      \item Usage of concurrency usually really means "concurrency and/or Parallelism"
+      \item When encountering "concurrency", read "concurrency and/or parallelism" during
       this presentation.
   \end{itemize}
 \end{frame}
@@ -129,7 +129,7 @@
         \item Modern computers have many cores
         \item Without concurrency only a single core can be used by an application
         \item We want to make full use of all resources of a modern computer
-        \item Thus we need Concurrency
+        \item Thus we need concurrency
     \end{itemize}
 \end{frame}
 
@@ -161,7 +161,7 @@
         \item Guards (e.g. Mutex, Semaphore, Spinlocks)
         \item Difficult to know whether solution is correct
         \item Only observe result at run-time
-        \item Rust's ownership model and type system allow for catching concurrency issues at compile time
+        \item Rust's ownership model and type system allow for catching some concurrency issues at compile time
     \end{itemize}
 \end{frame}
 
@@ -186,11 +186,6 @@
     \begin{itemize}
         \item Created with \texttt{thread::spawn}
         \item Can wait for a thread to finish with the \texttt{join} method.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Demo}
-    \begin{itemize}
         \item File \texttt{rust-samples/src/thread\_basic.rs}
         \item Try to compile : \texttt{cd rust-samples \&\& cargo run --bin thread\_basic}
     \end{itemize}
@@ -200,13 +195,8 @@
     \begin{itemize}
         \item Previous example only used thread-local data
         \item More common use is to use data from another thread
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Demo}
-    \begin{itemize}
-        \item File \texttt{rust-samples/src/ownership\_borrow.rs}
-        \item Try to compile : \texttt{cd rust-samples \&\& cargo run --bin ownership\_borrow}
+        \item File \texttt{rust-samples/src/ownership\_thread.rs}
+        \item Try to compile : \texttt{cd rust-samples \&\& cargo run --bin ownership\_thread}
     \end{itemize}
 \end{frame}
 
@@ -230,29 +220,22 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Demo}
-    \begin{itemize}
-        \item File \texttt{rust-samples/src/ownership\_move.rs}
-        \item Compile \& run : \texttt{cd rust-samples \&\& cargo run --bin ownership\_move}
-    \end{itemize}
-\end{frame}
-
 \section{Message passing between threads}
 \begin{frame}{Problem}
     \begin{itemize}
-        \item Due to Rusts borrow checker it now seems impossible for threads to communicate with each other
+        \item 'Share memory by communicating instead of communicating by sharing memory'
         \item Possible solution: Have communication channel between threads.
         \item Implemented by rust via \texttt{std::sync::mpsc} module.
-        \item \texttt{std::sync::mpsc} is a multi-producer, single-consumer FIFO queue communication primitives
-        \item Allow a thread to send a message over a channel to another thread.
-        \item Can be conceptually thought of as moving a variable to another thread.
+        \item \texttt{std::sync::mpsc} is a multi-producer, single-consumer mechanism
+        \item Allow a thread to send a message over a channel to different thread.
+        \item Moves ownership to a variable in different thread.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Demo}
      \begin{itemize}
-        \item Source is under: \texttt{rust-samples/src/channel.rs}
-        \item To compile \& run: \texttt{cd rust-samples \&\& cargo run --bin channel}.
+        \item Source is under: \texttt{rust-samples/src/channels.rs}
+        \item To compile \& run: \texttt{cd rust-samples \&\& cargo run --bin channels}.
     \end{itemize}
 \end{frame}
 
@@ -261,7 +244,8 @@
 \begin{frame}{Alternative communication method}
     \begin{itemize}
         \item Alternative is to communicate by sharing memory directly
-        \item Message passing with channels transfers ownership to another thread over a channel
+        \item This is what the C example did
+        \item Unlike message passing single ownership is not enough
         \item Shared memory is similar to multiple ownership
         \item Results in additional complexity
         \item Rust's type system and ownership can help reduce errors
@@ -272,9 +256,7 @@
     \begin{itemize}
         \item Earlier example in C we had a race condition
         \item The example used shared memory
-        \item Create a safe Rust version using Mutex
-        \item Mutex contains the shared data.
-        \item Type system guarantees that we \textbf{must} acquire a lock before modifying the data.
+        \item Create a safe Rust version
     \end{itemize}
 \end{frame}
 
@@ -291,28 +273,34 @@
         \item Solution requires multiple ownership
         \item Rust provides various mechanisms for multiple ownership
         \item One solution uses reference counting, implemented by \texttt{Rc<T>}
-        \item Fails for multiple threads since \texttt{Rc<T>} is not thread safe
-        \item This is enforced through the type system via \texttt{Traits}
+        \item Attempt 2, File \texttt{rust-samples/src/shmem\_rc.rs}
+        \item Try to compile: \texttt{cd rust-samples \&\& cargo run --bin shmem\_rc.rs}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Traits}
     \begin{itemize}
-        \item Traits can be considered a "feature" of a type
-        \item For example a trait exist called "clone" which means that value of a type that implements it can be cloned
+        \item Traits are a way to share features between types
+        \item Provide ad-hoc polymorphism
+        \item File \texttt{rust-samples/src/traits.rs}
+        \item Try to compile: \texttt{cd rust-samples \&\& cargo run --bin traits.rs}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Traits}
+    \begin{itemize}
         \item There are two traits for concurrency concepts embedded in Rust
-        \item \texttt{Send}: Ownership can be transferred to another thread. Via for example a channel.
+        \item \texttt{Send}: Ownership can be transferred to another thread.
         \item \texttt{Sync}: Indicates that the type can be referenced from multiple threads
+        \item \texttt{Rc<T>} does not have the \texttt{Send} trait
+        \item This is because it doesn't guarantee that the updates to the reference count are atomic
     \end{itemize}
 \end{frame}
 
 \begin{frame}{C example revisited}
     \begin{itemize}
-        \item \texttt{Rc<T>} does not have the \texttt{Send} trait
-        \item This is because it doesn't guarantee that the updates to the reference count are atomic
-        \item Multiple threads could thus corrupt the reference count
         \item Solution: \texttt{Arc<T>}
-        \item \texttt{Arc<t>} is an atomically reference counted type
+        \item \texttt{Arc<T>} is an atomically reference counted type
         \item This type guarantees that the modifications to the reference count occur atomically, i.e. are thread-safe.
     \end{itemize}
 \end{frame}
@@ -327,8 +315,11 @@
 \section{Conclusion}
 \begin{frame}{Conclusion}
     \begin{itemize}
-        \item Rusts ownership and lifetime model statically prevents data races and invalid references
-        \item However other race condition such as dead-locks are not prevented.
+        \item Creation and use of threads
+        \item Message passing
+        \item Shared state
+        \item Rusts ownership model and type system statically prevent data races and invalid references
+        \item However, race condition such as dead-locks are not prevented.
     \end{itemize}
 \end{frame}
 
